@@ -26,6 +26,26 @@ if (!defined('DS')) {
 }
 
 /**
+ * Define TMP
+ */
+	define('TMP', sys_get_temp_dir(). 'resources/');
+
+	if (!is_dir(TMP)) {
+		$resources = TMP;
+		$dirs = array(
+			"{$resources}logs",
+			"{$resources}cache",
+			"{$resources}cache/persistent",
+			"{$resources}cache/models",
+			"{$resources}cache/views",
+			"{$resources}sessions",
+		);
+		foreach ($dirs as $d) {
+			mkdir($d, 0777, true);
+		}
+		touch(TMP . 'installed.txt');
+	}
+/**
  * These defines should only be edited if you have cake installed in
  * a directory layout other than the way it is distributed.
  * When using custom settings be sure to use the DS and do not add a trailing DS.
